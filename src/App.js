@@ -12,11 +12,23 @@ function App() {
   }, [])
 
   async function handleAddRepository() {
-    // TODO
+    const response = await api.post('repositories',{
+      title: "Projeto Pizzaria",
+      url:"https://github.com/LeonardoCHb/Projeto_Pizzaria.git",
+      techs:["Node.js", "React", "Bootstrap"]
+    })
+    const newRepository = response.data;
+    setRepositories([...repositories, newRepository])
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+
+    const indexRepository = repositories.findIndex(repository => repository.id === id)
+    const newRepositories = [...repositories]
+
+    newRepositories.splice(indexRepository, 1);
+
+    setRepositories(newRepositories)
   }
 
   return (
@@ -25,7 +37,7 @@ function App() {
         {repositories.map(repository => {
           return (<li key={repository.id}>
                   {repository.title}
-                  <button onClick={() => handleRemoveRepository(1)}>Remover</button>
+                  <button onClick={() => handleRemoveRepository(repository.id)}>Remover</button>
                   </li>)
         })}
       </ul>
