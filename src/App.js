@@ -21,8 +21,8 @@ function App() {
     setRepositories([...repositories, newRepository])
   }
 
-  async function handleRemoveRepository(id) {
-
+   async function handleRemoveRepository(id) {
+    await api.delete(`repositories/${id}`);
     const indexRepository = repositories.findIndex(repository => repository.id === id)
     const newRepositories = [...repositories]
 
